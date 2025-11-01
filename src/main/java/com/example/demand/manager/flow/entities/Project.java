@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -19,14 +20,15 @@ public class Project {
 
     private String name;
     private String description;
-    private Date startDate;
-    private Date endDate;
 
-    @OneToMany(mappedBy = "project")
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
 
     public Project() {}
-    public Project(String name, String description, Date startDate, Date endDate) {
+    public Project(String name, String description, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
